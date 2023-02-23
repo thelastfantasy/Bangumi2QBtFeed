@@ -32,8 +32,6 @@ const columns = [
 ];
 
 export const DataTable = ({ items }: Props) => {
-  console.log(items);
-
   return (
     <Table arial-label="Data table">
       <TableHeader>
