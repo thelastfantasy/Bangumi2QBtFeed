@@ -1,4 +1,5 @@
 import { useEffect } from "react";
+import { css } from "@emotion/react";
 import MyAppMain from "../components/App";
 
 const Home = () => {
@@ -11,7 +12,11 @@ const Home = () => {
     setupAppWindow();
   }, []);
 
-  return <MyAppMain></MyAppMain>;
+  return (
+    <div style={{ padding: "12px", minHeight: "100vh" }}>
+      <MyAppMain></MyAppMain>
+    </div>
+  );
 };
 
 export default Home;

@@ -1,6 +1,7 @@
-import { StrictMode, Suspense } from "react";
-import { createRoot } from "react-dom/client";
+import { Suspense } from "react";
 import { BrowserRouter as Router, useRoutes } from "react-router-dom";
+import { FluentProvider, teamsDarkTheme } from "@fluentui/react-components";
+import ReactDOM from "react-dom";
 
 import "./styles/index.scss";
 import "./styles/App.scss";
@@ -11,15 +12,15 @@ import routes from "~react-pages";
 console.log(routes);
 
 function App() {
-  return <Suspense fallback={<p>Loading...</p>}>{useRoutes(routes)}</Suspense>;
+  const element = useRoutes(routes);
+  return element;
 }
 
-const app = createRoot(document.getElementById("root")!);
-
-app.render(
-  <StrictMode>
-    <Router>
+ReactDOM.render(
+  <Router>
+    <FluentProvider theme={teamsDarkTheme}>
       <App />
-    </Router>
-  </StrictMode>
+    </FluentProvider>
+  </Router>,
+  document.getElementById("root")
 );

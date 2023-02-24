@@ -1,46 +1,16 @@
 import { useEffect, useState } from "react";
 import { invoke } from "@tauri-apps/api/tauri";
-import { PrimaryButton } from "@fluentui/react/lib/Button";
-import { IColumn, mergeStyleSets } from "@fluentui/react";
+import { Button } from "@fluentui/react-components";
 import { DataTable } from "./DataTable";
+import { css } from "@emotion/react";
 import { Select } from "@fluentui/react-components";
+import { CalendarMonthRegular } from "@fluentui/react-icons";
 
-const classNames = mergeStyleSets({
-  fileIconHeaderIcon: {
-    padding: 0,
-    fontSize: "16px",
-  },
-  fileIconCell: {
-    textAlign: "center",
-    selectors: {
-      "&:before": {
-        content: ".",
-        display: "inline-block",
-        verticalAlign: "middle",
-        height: "100%",
-        width: "0px",
-        visibility: "hidden",
-      },
-    },
-  },
-  fileIconImg: {
-    verticalAlign: "middle",
-    maxHeight: "16px",
-    maxWidth: "16px",
-  },
-  controlWrapper: {
-    display: "flex",
-    flexWrap: "wrap",
-  },
-  exampleToggle: {
-    display: "inline-block",
-    marginBottom: "10px",
-    marginRight: "30px",
-  },
-  selectionDetails: {
-    marginBottom: "20px",
-  },
-});
+const styles = css`
+  select {
+    color: red;
+  }
+`;
 
 export type BangumiData = {
   date: string;
@@ -76,41 +46,53 @@ function MyAppMain() {
   }, []);
 
   return (
-    <div className="App">
-      <h2>番组信息</h2>
-      <div
-        style={{
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "flex-end",
-        }}
-      >
-        <div style={{ paddingBottom: "8px", display: "flex", gap: "4px" }}>
-          <div>
-            <Select
-              style={{ justifyContent: "flex-end" }}
-              value={currentIndex}
-              onChange={(_e, data) => setCurrentIndex(Number(data.value))}
-            >
-              {data.map((season, index) => (
-                <option key={index} value={index}>
-                  {season.title}
-                </option>
-              ))}
-            </Select>
+    <>
+      <div className="App">
+        <h2>番组信息</h2>
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "flex-end",
+          }}
+        >
+          <div style={{ paddingBottom: "8px", display: "flex", gap: "4px" }}>
+            <div>
+              <Select
+                // css={`
+                //   & select {
+                //     font-size: 50px;
+                //     color: green;
+                //   }
+                // `}
+                css={styles}
+                style={{ justifyContent: "flex-end" }}
+                value={currentIndex}
+                onChange={(_e, data) => setCurrentIndex(Number(data.value))}
+              >
+                {data.map((season, index) => (
+                  <option key={index} value={index}>
+                    {season.title}
+                  </option>
+                ))}
+              </Select>
+            </div>
+            <div>
+              <Button
+                appearance="primary"
+                icon={<CalendarMonthRegular />}
+                onClick={() => getKansouMe()}
+              >
+                获取番组信息
+              </Button>
+            </div>
           </div>
           <div>
-            <PrimaryButton
-              text={`获取番组信息`}
-              onClick={() => getKansouMe()}
-            />
+            <DataTable items={currentSeason?.data ?? []}></DataTable>
           </div>
-        </div>
-        <div>
-          <DataTable items={currentSeason?.data ?? []}></DataTable>
         </div>
       </div>
-    </div>
+    </>
   );
 }
 

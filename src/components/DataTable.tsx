@@ -6,19 +6,7 @@ import {
   TableHeader,
   TableHeaderCell,
   TableCellLayout,
-  PresenceBadgeStatus,
-  Avatar,
 } from "@fluentui/react-components";
-import * as React from "react";
-import {
-  FolderRegular,
-  EditRegular,
-  OpenRegular,
-  DocumentRegular,
-  PeopleRegular,
-  DocumentPdfRegular,
-  VideoRegular,
-} from "@fluentui/react-icons";
 import { BangumiData } from "./App";
 
 type Props = {

@@ -2,11 +2,15 @@
     all(not(debug_assertions), target_os = "windows"),
     windows_subsystem = "windows"
 )]
+#![allow(dead_code, non_snake_case)]
 
 use reqwest::Client;
 use scraper::{Html, Selector};
 use selectors::Element;
 use serde::Serialize;
+
+mod time;
+use crate::time::my_time;
 
 const BGM_BASE_URL: &str = "https://api.bgm.tv";
 const BGM_APP_ID: &str = "bgm257463f648fa0b307";
@@ -19,7 +23,7 @@ async fn search_BGM_anime_by_keyword(keyword: &str) -> Result<(), Box<dyn std::e
         keyword
     };
 
-    use reqwest::header::{HeaderMap, HeaderValue, AUTHORIZATION, USER_AGENT};
+    use reqwest::header::{HeaderMap, AUTHORIZATION, USER_AGENT};
     use reqwest::Url;
     use url::form_urlencoded;
 
@@ -62,9 +66,9 @@ async fn search_BGM_anime_by_keyword(keyword: &str) -> Result<(), Box<dyn std::e
 // 自定义结构体用于保存响应结果
 #[derive(Debug, Serialize)]
 #[serde(untagged)]
-enum ScraperResult {
-    Success(Vec<Season>),
-    Error(String),
+enum ScraperResponse {
+    Data(Vec<Season>),
+    None,
 }
 
 #[derive(Debug, Serialize)]
@@ -91,19 +95,21 @@ struct BangumiData {
 }
 
 #[tauri::command]
-async fn get_kansou() -> Result<ScraperResult, ScraperResult> {
+async fn get_kansou() -> Option<ScraperResponse> {
     let url = "https://www.kansou.me/";
+    // let url = "https://www.kansou.me/animeka/";
+    // let url = "https://www.example-not-valid-domain.me/";
     let client = Client::new();
-    let res = client.get(url).send().await.map_err(|e| {
-        let status = e.status().map(|s| s.as_u16()).unwrap_or(0);
-        let msg = e.to_string();
-        ScraperResult::Error(format!("{}: {}", status, msg))
-    })?;
+    let res = match client.get(url).send().await {
+        Ok(response) => response,
+        Err(_e) => return None,
+    };
 
     let body = res
         .text()
         .await
-        .map_err(|e| ScraperResult::Error(format!("0, {}", e.to_string())))?;
+        .map_err(|_e| None::<ScraperResponse>)
+        .unwrap();
     let html = Html::parse_document(&body);
     let h2_selector = Selector::parse("h2").unwrap();
     let tbody_selector = Selector::parse("tbody").unwrap();
@@ -150,7 +156,7 @@ async fn get_kansou() -> Result<ScraperResult, ScraperResult> {
     }
 
     // println!("{:#?}", ScraperResult::Success(programs.clone()));
-    Ok(ScraperResult::Success(programs))
+    Some(ScraperResponse::Data(programs))
 }
 
 fn main() {
@@ -177,7 +183,8 @@ mod tests {
 
     #[tokio::test]
     async fn test_get_kansou() {
-        let result = get_kansou().await;
-        assert!(result.is_ok());
+        let res = get_kansou().await;
+        println!("{:#?}", res);
+        assert!(res.is_some());
     }
 }

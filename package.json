@@ -9,6 +9,8 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@emotion/react": "^11.10.6",
+    "@emotion/styled": "^11.10.6",
     "@fluentui/react": "^8.106.0",
     "@fluentui/react-components": "^9.15.5",
     "@fluentui/react-icons": "^2.0.194",
