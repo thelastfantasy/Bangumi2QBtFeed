@@ -4,7 +4,7 @@ import { Button } from "@fluentui/react-components";
 import { DataTable } from "./DataTable";
 import { css } from "@emotion/react";
 import { Select } from "@fluentui/react-components";
-import { CalendarMonthRegular } from "@fluentui/react-icons";
+import { MoviesAndTv16Filled as BtnIcon } from "@fluentui/react-icons";
 
 const styles = css`
   select {
@@ -74,7 +74,7 @@ function MyAppMain() {
             <div>
               <Button
                 appearance="primary"
-                icon={<CalendarMonthRegular />}
+                icon={<BtnIcon />}
                 onClick={() => getKansouMe()}
               >
                 获取番组信息
