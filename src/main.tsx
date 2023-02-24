@@ -7,20 +7,28 @@ import "./styles/index.scss";
 import "./styles/App.scss";
 
 import routes from "~react-pages";
+import { useDarkMode } from "./hooks";
 
 // eslint-disable-next-line no-console
 console.log(routes);
 
-function App() {
+function RouteElement() {
   const element = useRoutes(routes);
   return element;
 }
 
-ReactDOM.render(
-  <Router>
-    <FluentProvider theme={teamsDarkTheme}>
-      <App />
-    </FluentProvider>
-  </Router>,
-  document.getElementById("root")
-);
+function Main() {
+  const { theme } = useDarkMode();
+
+  return (
+    <Router>
+      <FluentProvider theme={theme}>
+        <div id="main">
+          <RouteElement></RouteElement>
+        </div>
+      </FluentProvider>
+    </Router>
+  );
+}
+
+ReactDOM.render(<Main />, document.getElementById("root"));

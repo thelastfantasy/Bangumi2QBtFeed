@@ -48,7 +48,7 @@ function MyAppMain() {
   return (
     <>
       <div className="App">
-        <h2>番组信息</h2>
+        <h2 style={{ textAlign: "center" }}>番组信息</h2>
         <div
           style={{
             display: "flex",
@@ -59,12 +59,6 @@ function MyAppMain() {
           <div style={{ paddingBottom: "8px", display: "flex", gap: "4px" }}>
             <div>
               <Select
-                // css={`
-                //   & select {
-                //     font-size: 50px;
-                //     color: green;
-                //   }
-                // `}
                 css={styles}
                 style={{ justifyContent: "flex-end" }}
                 value={currentIndex}

@@ -12,11 +12,7 @@ const Home = () => {
     setupAppWindow();
   }, []);
 
-  return (
-    <div style={{ padding: "12px", minHeight: "100vh" }}>
-      <MyAppMain></MyAppMain>
-    </div>
-  );
+  return <MyAppMain></MyAppMain>;
 };
 
 export default Home;
