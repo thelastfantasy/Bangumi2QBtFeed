@@ -62,6 +62,17 @@
         "title": "vite-project",
         "visible": false,
         "center": true
+      },
+      {
+        "fullscreen": false,
+        "width": 300,
+        "height": 300,
+        "resizable": true,
+        "title": "Info",
+        "visible": false,
+        "center": false,
+        "url": "info.html",
+        "label": "info"
       }
     ]
   }

@@ -5,12 +5,12 @@
 #![allow(dead_code, non_snake_case)]
 
 use reqwest::Client;
-use scraper::{Html, Selector};
-use selectors::Element;
-use serde::Serialize;
+use scraper::{Element, Html, Selector};
 
-mod time;
-use crate::time::my_time;
+pub mod time;
+use crate::time as my_time;
+pub mod kansou;
+use kansou::*;
 
 const BGM_BASE_URL: &str = "https://api.bgm.tv";
 const BGM_APP_ID: &str = "bgm257463f648fa0b307";
@@ -61,37 +61,6 @@ async fn search_BGM_anime_by_keyword(keyword: &str) -> Result<(), Box<dyn std::e
     println!("Body: {:?}", body);
 
     Ok(())
-}
-
-// 自定义结构体用于保存响应结果
-#[derive(Debug, Serialize)]
-#[serde(untagged)]
-enum ScraperResponse {
-    Data(Vec<Season>),
-    None,
-}
-
-#[derive(Debug, Serialize)]
-struct Season {
-    title: String,
-    data: Vec<BangumiData>,
-}
-
-impl Clone for Season {
-    fn clone(&self) -> Self {
-        Season {
-            title: self.title.clone(),
-            data: self.data.clone(),
-        }
-    }
-}
-
-#[derive(Debug, Clone, Serialize)]
-struct BangumiData {
-    date: String,
-    title: String,
-    #[serde(default)]
-    broadcast_station: Vec<String>,
 }
 
 #[tauri::command]
@@ -159,9 +128,20 @@ async fn get_kansou() -> Option<ScraperResponse> {
     Some(ScraperResponse::Data(programs))
 }
 
+#[tauri::command]
+async fn get_window_label(window: tauri::Window) {
+    println!(
+        "Window: {}\nis_fullscreen:{:?}\ncurrent_monitor: {:?}\nhwnd: {:?}\n",
+        window.label(),                    //获取应用窗口的label
+        window.is_fullscreen().unwrap(),   //获取应用是否全屏
+        window.current_monitor().unwrap(), //获取应用当前所在的屏幕
+        window.hwnd().unwrap()             //获取应用窗口的句柄
+    );
+}
+
 fn main() {
     tauri::Builder::default()
-        .invoke_handler(tauri::generate_handler![get_kansou])
+        .invoke_handler(tauri::generate_handler![get_kansou, get_window_label])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");
 }

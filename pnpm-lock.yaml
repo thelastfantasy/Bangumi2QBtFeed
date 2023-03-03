@@ -8,6 +8,7 @@ specifiers:
   '@fluentui/react-icons': ^2.0.194
   '@tauri-apps/api': ^1.2.0
   '@tauri-apps/cli': ^1.2.3
+  '@theme-toggles/react': ^4.1.0
   '@types/node': ^18.14.0
   '@types/react': ^18.0.27
   '@types/react-dom': ^18.0.10
@@ -16,7 +17,9 @@ specifiers:
   react-dom: ^18.2.0
   react-router: ^6.8.1
   react-router-dom: ^6.8.1
+  recoil: ^0.7.7
   sass: ^1.58.3
+  theme-toggles: ^4.10.1
   typescript: ^4.9.3
   vite: ^4.1.0
   vite-plugin-pages: ^0.28.0
@@ -28,11 +31,14 @@ dependencies:
   '@fluentui/react-components': 9.15.5_3xleytyzprlgycb2ded54tx72i
   '@fluentui/react-icons': 2.0.194_react@18.2.0
   '@tauri-apps/api': 1.2.0
+  '@theme-toggles/react': 4.1.0_biqbaboplfbrettd7655fr4n2y
   react: 18.2.0
   react-dom: 18.2.0_react@18.2.0
   react-router: 6.8.1_react@18.2.0
   react-router-dom: 6.8.1_biqbaboplfbrettd7655fr4n2y
+  recoil: 0.7.7_biqbaboplfbrettd7655fr4n2y
   sass: 1.58.3
+  theme-toggles: 4.10.1
 
 devDependencies:
   '@tauri-apps/cli': 1.2.3
@@ -1861,6 +1867,16 @@ packages:
       '@tauri-apps/cli-win32-x64-msvc': 1.2.3
     dev: true
 
+  /@theme-toggles/react/4.1.0_biqbaboplfbrettd7655fr4n2y:
+    resolution: {integrity: sha512-h3SuJMsej8DfelHt5fjNIlaMfJOK52Vku4pPDVoHaTwjAcoTr4fn8hzeur2oiqWBYFYfKugvv1RdQaBFXaiPKg==}
+    peerDependencies:
+      react: ^16 || ^17 || ^18
+      react-dom: ^16 || ^17 || ^18
+    dependencies:
+      react: 18.2.0
+      react-dom: 18.2.0_react@18.2.0
+    dev: false
+
   /@types/debug/4.1.7:
     resolution: {integrity: sha512-9AonUzyTjXXhEOa0DnqpzZi6VHlqKMswga9EXjpXnnqxwLtdvPPtlO8evrI5D9S6asFRCQ6v+wpiUKbw+vKqyg==}
     dependencies:
@@ -2196,6 +2212,10 @@ packages:
     dependencies:
       get-intrinsic: 1.2.0
     dev: true
+
+  /hamt_plus/1.0.2:
+    resolution: {integrity: sha512-t2JXKaehnMb9paaYA7J0BX8QQAY8lwfQ9Gjf4pg/mk4krt+cmwmU652HOoWonf+7+EQV97ARPMhhVgU1ra2GhA==}
+    dev: false
 
   /has-bigints/1.0.2:
     resolution: {integrity: sha512-tSvCKtBr9lkF0Ex0aQiP9N+OpV4zi2r/Nee5VkRDbaqv35RLYMzbwQfFSZZH0kR+Rd6302UJZ2p/bJCEoR3VoQ==}
@@ -2585,6 +2605,23 @@ packages:
     dependencies:
       picomatch: 2.3.1
 
+  /recoil/0.7.7_biqbaboplfbrettd7655fr4n2y:
+    resolution: {integrity: sha512-8Og5KPQW9LwC577Vc7Ug2P0vQshkv1y3zG3tSSkWMqkWSwHmE+by06L8JtnGocjW6gcCvfwB3YtrJG6/tWivNQ==}
+    peerDependencies:
+      react: '>=16.13.1'
+      react-dom: '*'
+      react-native: '*'
+    peerDependenciesMeta:
+      react-dom:
+        optional: true
+      react-native:
+        optional: true
+    dependencies:
+      hamt_plus: 1.0.2
+      react: 18.2.0
+      react-dom: 18.2.0_react@18.2.0
+    dev: false
+
   /regenerator-runtime/0.13.11:
     resolution: {integrity: sha512-kY1AZVr2Ra+t+piVaJ4gxaFaReZVH40AKNo7UCX6W+dEwBo/2oZJzqfuN1qLq1oL45o56cPaTXELwrTh8Fpggg==}
     dev: false
@@ -2695,6 +2732,10 @@ packages:
     dependencies:
       keyborg: 2.0.0
       tslib: 2.5.0
+    dev: false
+
+  /theme-toggles/4.10.1:
+    resolution: {integrity: sha512-PCvj0cB+3JOv8gUXjvp+/7Nu7hSLAYCwmxsAjltIhUUpF6NPn3jDMo64KCu2S2HQe+lGAEM01f2hDzqlPg3bsQ==}
     dev: false
 
   /to-fast-properties/2.0.0:

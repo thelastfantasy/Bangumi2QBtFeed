@@ -1,16 +1,13 @@
 import { useEffect, useState } from "react";
 import { invoke } from "@tauri-apps/api/tauri";
-import { Button } from "@fluentui/react-components";
+import { Button, Switch, useId } from "@fluentui/react-components";
 import { DataTable } from "./DataTable";
-import { css } from "@emotion/react";
 import { Select } from "@fluentui/react-components";
 import { MoviesAndTv16Filled as BtnIcon } from "@fluentui/react-icons";
-
-const styles = css`
-  select {
-    color: red;
-  }
-`;
+import { useDarkMode } from "../hooks";
+import { InnerMoon } from "@theme-toggles/react";
+import { useRecoilValue } from "recoil";
+import { darkModeState } from "../store";
 
 export type BangumiData = {
   date: string;
@@ -27,8 +24,13 @@ function MyAppMain() {
   const [data, setData] = useState<Season[]>([]);
   const [currentIndex, setCurrentIndex] = useState<number>(0);
   const [currentSeason, setCurrentSeason] = useState<Season | null>(data[0]);
+  const selectId = useId();
+  const { setMode } = useDarkMode();
+  const { systemTheme } = useRecoilValue(darkModeState);
 
   async function getKansouMe() {
+    invoke("get_window_label");
+
     const result: Season[] = await invoke("get_kansou");
     setData(result);
     setCurrentSeason(result[currentIndex]);
@@ -48,6 +50,27 @@ function MyAppMain() {
   return (
     <>
       <div className="App">
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "flex-end",
+          }}
+        >
+          <div>
+            <InnerMoon
+              reversed
+              style={{
+                fontSize: "20px",
+                color: systemTheme === "dark" ? "rgb(248, 215, 20)" : "black",
+                // color: "rgb(248, 215, 20)",
+              }}
+              onToggle={(toggled) => {
+                setMode(toggled ? "dark" : "light");
+              }}
+            />
+          </div>
+        </div>
         <h2 style={{ textAlign: "center" }}>番组信息</h2>
         <div
           style={{
@@ -59,8 +82,9 @@ function MyAppMain() {
           <div style={{ paddingBottom: "8px", display: "flex", gap: "4px" }}>
             <div>
               <Select
-                css={styles}
-                style={{ justifyContent: "flex-end" }}
+                id={selectId}
+                // css={styles}
+                // style={{ justifyContent: "flex-end" }}
                 value={currentIndex}
                 onChange={(_e, data) => setCurrentIndex(Number(data.value))}
               >
@@ -72,11 +96,7 @@ function MyAppMain() {
               </Select>
             </div>
             <div>
-              <Button
-                appearance="primary"
-                icon={<BtnIcon />}
-                onClick={() => getKansouMe()}
-              >
+              <Button appearance="primary" icon={<BtnIcon />} onClick={() => getKansouMe()}>
                 获取番组信息
               </Button>
             </div>

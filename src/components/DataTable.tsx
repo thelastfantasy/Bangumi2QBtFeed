@@ -7,6 +7,8 @@ import {
   TableHeaderCell,
   TableCellLayout,
 } from "@fluentui/react-components";
+import { useEffect } from "react";
+import { useDarkMode } from "../hooks";
 import { BangumiData } from "./App";
 
 type Props = {
