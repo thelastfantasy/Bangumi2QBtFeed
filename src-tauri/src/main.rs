@@ -140,10 +140,19 @@ async fn get_window_label(window: tauri::Window) {
 }
 
 fn main() {
-    tauri::Builder::default()
+    let app = tauri::Builder::default()
+        .setup(|_app| {
+            // let _info_window =
+            //     tauri::WindowBuilder::new(app, "wind", tauri::WindowUrl::App("info".into()))
+            //         .build()?;
+            Ok(())
+        })
         .invoke_handler(tauri::generate_handler![get_kansou, get_window_label])
-        .run(tauri::generate_context!())
+        .build(tauri::generate_context!())
         .expect("error while running tauri application");
+    app.run(|_app_handle, event| match event {
+        _ => {}
+    });
 }
 
 #[cfg(test)]

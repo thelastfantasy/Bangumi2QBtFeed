@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { invoke } from "@tauri-apps/api/tauri";
-import { Button, Switch, useId } from "@fluentui/react-components";
+import { Button, useId } from "@fluentui/react-components";
 import { DataTable } from "./DataTable";
 import { Select } from "@fluentui/react-components";
 import { MoviesAndTv16Filled as BtnIcon } from "@fluentui/react-icons";
@@ -65,6 +65,7 @@ function MyAppMain() {
                 color: systemTheme === "dark" ? "rgb(248, 215, 20)" : "black",
                 // color: "rgb(248, 215, 20)",
               }}
+              toggled={systemTheme === "dark"}
               onToggle={(toggled) => {
                 setMode(toggled ? "dark" : "light");
               }}

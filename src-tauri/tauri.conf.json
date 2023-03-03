@@ -65,13 +65,13 @@
       },
       {
         "fullscreen": false,
-        "width": 300,
-        "height": 300,
+        "width": 400,
+        "height": 400,
         "resizable": true,
         "title": "Info",
         "visible": false,
         "center": false,
-        "url": "info.html",
+        "url": "info",
         "label": "info"
       }
     ]

@@ -16,7 +16,7 @@ export function useDarkMode() {
   };
 
   function updateSyetemTheme(mode: "dark" | "light") {
-    setDarkMode((oldState) => ({
+    setDarkMode((oldState: any) => ({
       ...oldState,
       systemTheme: mode,
     }));

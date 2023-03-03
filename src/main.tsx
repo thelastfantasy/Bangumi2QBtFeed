@@ -2,13 +2,12 @@ import { BrowserRouter as Router, useRoutes } from "react-router-dom";
 import { FluentProvider, teamsDarkTheme, teamsLightTheme } from "@fluentui/react-components";
 import { createRoot } from "react-dom/client";
 import routes from "~react-pages";
-import { useDarkMode } from "./hooks";
 
 import "./styles/index.scss";
 import "./styles/App.scss";
 import "@theme-toggles/react/css/InnerMoon.css";
-import { useEffect, useState } from "react";
-import { RecoilRoot, useRecoilState, useRecoilValue } from "recoil";
+import { useEffect } from "react";
+import { RecoilRoot, useRecoilValue } from "recoil";
 import { darkModeState } from "./store/theme";
 
 // eslint-disable-next-line no-console
@@ -29,6 +28,25 @@ function Main() {
 
 function MainInner() {
   const { systemTheme } = useRecoilValue(darkModeState);
+
+  async function setupAppWindow() {
+    const WebviewWindow = (await import("@tauri-apps/api/window")).WebviewWindow;
+    const exit = (await import("@tauri-apps/api/process")).exit;
+
+    const mainWindow = WebviewWindow.getByLabel("main");
+    mainWindow?.show();
+
+    // const infoWindow = WebviewWindow.getByLabel("info");
+    // infoWindow?.show();
+
+    mainWindow?.onCloseRequested(() => {
+      exit();
+    });
+  }
+
+  useEffect(() => {
+    setupAppWindow();
+  }, []);
 
   return (
     <FluentProvider theme={systemTheme === "dark" ? teamsDarkTheme : teamsLightTheme}>
