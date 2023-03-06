@@ -7,7 +7,7 @@ const { persistAtom } = recoilPersist();
 export const darkModeState = atom({
   key: "darkModeState",
   default: {
-    systemTheme: "light",
+    systemTheme: "light" as "light" | "dark",
     autoDarkmode: true,
     theme: teamsLightTheme,
   },
