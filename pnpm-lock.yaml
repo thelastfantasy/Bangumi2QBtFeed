@@ -6,6 +6,8 @@ specifiers:
   '@fluentui/react': ^8.106.0
   '@fluentui/react-components': ^9.15.5
   '@fluentui/react-icons': ^2.0.194
+  '@rspc/client': ^0.1.3
+  '@rspc/react': ^0.1.3
   '@tauri-apps/api': ^1.2.0
   '@tauri-apps/cli': ^1.2.3
   '@theme-toggles/react': ^4.1.0
@@ -31,6 +33,8 @@ dependencies:
   '@fluentui/react': 8.106.0_3xleytyzprlgycb2ded54tx72i
   '@fluentui/react-components': 9.15.5_3xleytyzprlgycb2ded54tx72i
   '@fluentui/react-icons': 2.0.194_react@18.2.0
+  '@rspc/client': 0.1.3
+  '@rspc/react': 0.1.3_react@18.2.0
   '@tauri-apps/api': 1.2.0
   '@theme-toggles/react': 4.1.0_biqbaboplfbrettd7655fr4n2y
   react: 18.2.0
@@ -1658,6 +1662,20 @@ packages:
   /@remix-run/router/1.3.2:
     resolution: {integrity: sha512-t54ONhl/h75X94SWsHGQ4G/ZrCEguKSRQr7DrjTciJXW0YU1QhlwYeycvK5JgkzlxmvrK7wq1NB/PLtHxoiDcA==}
     engines: {node: '>=14'}
+    dev: false
+
+  /@rspc/client/0.1.3:
+    resolution: {integrity: sha512-3rsnmqm5G9fwtfV0HNPj4a70YTHUiw+hhC8RpyMPwOxn6pubCCVVbt58EN+eNaUICqs6DUAT/06SBNwVTRkkLg==}
+    dev: false
+
+  /@rspc/react/0.1.3_react@18.2.0:
+    resolution: {integrity: sha512-JqdsM99QMZTTfrQHqhMAF98Qeuhym8G7DtABfb8F7a9iRjwGiF1eFqWtra3N85BOzr9vurbfwz7TmiTvg5HR7A==}
+    peerDependencies:
+      '@tanstack/react-query': ^4.26.0
+      react: ^18.0.0
+    dependencies:
+      '@rspc/client': 0.1.3
+      react: 18.2.0
     dev: false
 
   /@swc/core-darwin-arm64/1.3.36:
