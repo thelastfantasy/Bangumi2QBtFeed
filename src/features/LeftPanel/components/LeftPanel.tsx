@@ -1,6 +1,6 @@
 import { invoke } from "@tauri-apps/api";
 import { useEffect } from "react";
-import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
+import { useRecoilValue, useSetRecoilState } from "recoil";
 import { DataTable } from "../../../components/DataTable";
 import {
   currentSeasonIndexState,

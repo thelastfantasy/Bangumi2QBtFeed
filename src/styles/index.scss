@@ -16,3 +16,16 @@ body {
   min-width: 320px;
   min-height: 100vh;
 }
+
+.fui-TableRow {
+  .copy-button {
+    visibility: hidden;
+    padding: 0;
+  }
+
+  &:hover {
+    .copy-button {
+      visibility: visible;
+    }
+  }
+}

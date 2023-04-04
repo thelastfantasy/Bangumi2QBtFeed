@@ -6,9 +6,15 @@ import {
   TableHeader,
   TableHeaderCell,
   TableCellLayout,
+  Button,
+  Tooltip,
 } from "@fluentui/react-components";
 import { useEffect } from "react";
 import { useDarkMode } from "../hooks";
+import { Copy16Regular as CopyIcon } from "@fluentui/react-icons";
+
+import { writeText } from "@tauri-apps/api/clipboard";
+
 import { BangumiData } from "./App";
 
 type Props = {
@@ -37,7 +43,18 @@ export const DataTable = ({ items }: Props) => {
             <TableCell>
               <TableCellLayout>{item.date}</TableCellLayout>
             </TableCell>
-            <TableCell>{item.title}</TableCell>
+            <TableCell>
+              {item.title}
+              <Button
+                className="copy-button"
+                appearance="transparent"
+                icon={<CopyIcon />}
+                onClick={() => {
+                  writeText(item.title);
+                }}
+                title="タイトルをコピー"
+              />
+            </TableCell>
             <TableCell>
               {item.broadcast_station.map((bs, i) => (
                 <TableCellLayout key={`${index}-${i}`}>{bs}</TableCellLayout>
